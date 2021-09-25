@@ -7,7 +7,7 @@ const Transaction = (props) => {
             {
                 props.label === 'deposit' ?
                 props.data.sort((a, b) => b.currency - a.currency).map(val => {
-                    return (<span key={val}>Rs . {val.currency} X {val.quantity} = {val.currency * val.quantity}</span>
+                    return (<span key={val}>Rs. {val.currency} X {val.quantity} = {val.currency * val.quantity}</span>
                     )
                 })
                 :
@@ -16,7 +16,7 @@ const Transaction = (props) => {
                      Object.keys(item).map(key => {
                              if(item[key] !== 0) {
                              return(
-                                 <span>Rs . {key} X {item[key]} = {key * item[key]}</span>
+                                 <span>Rs. {key} X {item[key]} = {key * item[key]}</span>
                              )}
                      }))
                      
