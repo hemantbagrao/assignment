@@ -39,7 +39,7 @@
 
 .title {
   float: left;
-  margin-left: 21%;
+  margin-left: 15%;
   font-size: 17px;
   font-weight: 500;
 }
@@ -52,12 +52,17 @@
 
 .frm {
   margin-left: 15%;
+  margin-right: 15%;
 }
 
 .curr-dom-list {
-  padding-right: 30%;
+  padding-right: 15%;
   margin-top: 50px;
   font-size: 14px;
   font-weight: 700;
   display: grid;
+}
+
+.err-txt {
+  font-size: 12px;
 }

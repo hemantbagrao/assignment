@@ -2,7 +2,6 @@ import React,{useState} from 'react';
 import Deposit from './deposit';
 import Withdraw from './withdraw';
 import {
-    BrowserRouter as Router,
     Switch,
     Route,
     Link
@@ -18,12 +17,11 @@ const Home = () => {
                 <Link to="/Deposit">
                     <button type="button" className={title==='DEPOSIT' ? "btn btn-primary" : 'btn btn-outline-primary'} onClick={() => setTitle('DEPOSIT')}>DEPOSIT</button>
                 </Link>
-                </div>
-                <div className="col-6">
                 <Link to="/Withdraw">
-                <button type="button" className={title==='WITHDRAW' ? "btn btn-primary" : "btn btn-outline-primary"} onClick={() => setTitle('WITHDRAW')}>WITHDRAW</button>
+                <button type="button" className={title==='WITHDRAW' ? "btn btn-primary ms-5" : "btn btn-outline-primary ms-5"} onClick={() => setTitle('WITHDRAW')}>WITHDRAW</button>
                 </Link>
                 </div>
+                
             </div>
 
             <div className="row mb-3">

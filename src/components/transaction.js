@@ -1,7 +1,6 @@
 import React from 'react';
 
 const Transaction = (props) => {
-    console.log("props==", props.label);
     return(
         <div className="curr-dom-list">
             {props.data.length > 0 ? <span className="text-decoration-underline">Available Denomination (Currency Notes)</span> : ''}

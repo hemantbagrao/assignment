@@ -2,7 +2,6 @@ import { DEPOSIT, WITHDRAW } from '../actions/action_types';
 
 
 const transaction = (state, action) => {
-    console.log(action);
 	switch(action.type) {
 		case DEPOSIT:
 			return {
