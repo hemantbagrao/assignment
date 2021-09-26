@@ -7,11 +7,30 @@ const Withdraw = (props) => {
     const [formErrors, setformErrors] = useState(false);
     const amountRef = useRef(null);
 
-    const checkBalance = () => {
-        const balance = props.transactions.reduce(function(acc,curr) {
-            return acc += curr.currency * curr.quantity
-        },0);
-        return balance;
+    const checkBalance = (amount) => {
+        const balance = props.transactions.reduce((acc,cur)=> {
+            acc += Number(cur.currency) * Number(cur.quantity);
+            return acc;
+        },0)
+
+        if(balance < amount) {
+            alert("Insufficient balance !!");
+            return false;
+        }
+        else {
+            const availableCurr = props.transactions.filter(val => val.currency <= Number(amount)).reduce((acc,cur)=> {
+                acc += Number(cur.currency) * Number(cur.quantity);
+                return acc;
+            },0)
+
+            if(amount > availableCurr) {
+                alert("Notes are not avalable");
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
     }
     const calculateDenomination = (amount) => {
         console.log("transactions",props.transactions);
@@ -31,14 +50,10 @@ const Withdraw = (props) => {
 
     const withdrawCurrency = () => {
         const amount = amountRef.current.value;
-        const accountBalance = checkBalance();
-        console.log("accountBalance", accountBalance);
         if (amount) {
-            if(accountBalance > amount) {
+            const chlAccountBalanceAndDenomination = checkBalance(amount);
+            if(chlAccountBalanceAndDenomination) {
                 calculateDenomination(amount)
-            }
-            else {
-                alert("Low balance!!");
             }
         }
         else setformErrors(true)
