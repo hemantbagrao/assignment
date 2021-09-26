@@ -8,7 +8,8 @@ const Withdraw = (props) => {
     const amountRef = useRef(null);
 
     const calculateDenomination = (amount) => {
-        const result = props.transactions.map(val => Number(val.currency));
+        
+        const result = props.transactions.sort((a, b) => b.currency - a.currency).map(val => Number(val.currency));
         const divideBy = [...new Set(result)];
         let resultArray = [];
         divideBy.map(c => {

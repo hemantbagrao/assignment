@@ -1,13 +1,14 @@
 import React from 'react';
 
 const Transaction = (props) => {
+    
     return(
         <div className="curr-dom-list">
             {props.data.length > 0 ? <span className="text-decoration-underline">Available Denomination (Currency Notes)</span> : ''}
             {
                 props.label === 'deposit' ?
-                props.data.sort((a, b) => b.currency - a.currency).map(val => {
-                    return (<span key={val}>Rs. {val.currency} X {val.quantity} = {val.currency * val.quantity}</span>
+                props.data.sort((a, b) => b.currency - a.currency).map((val,key) => {
+                    return (<span key={key}>Rs. {val.currency} X {val.quantity} = {val.currency * val.quantity}</span>
                     )
                 })
                 :

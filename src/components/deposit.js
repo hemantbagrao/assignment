@@ -17,6 +17,20 @@ const Deposit = (props) => {
         }
         else setformErrors(true)
     }
+    if(props.transactions) {
+        const res = props.transactions.reduce((acc,curr) => {
+            acc[curr.currency] ? acc[curr.currency] = Number(acc[curr.currency]) + Number(curr.quantity) : acc[curr.currency] = Number(curr.quantity);
+            return acc;
+        },{})
+        
+        var tempresult = [];
+        for (var prop in res) {
+            tempresult.push({ currency: prop, quantity: String(res[prop]), 'text':'Deposit' });
+        }
+    }
+    const result = tempresult.sort((a, b) => b.currency - a.currency)
+
+    
 
     return (
         <React.Fragment>
@@ -25,7 +39,7 @@ const Deposit = (props) => {
                 <select className="form-select" aria-label="form-select-curr-domination" ref={curdomination}>
                     <option defaultValue={'Select'} >Select</option>
                     {
-                        CURRENCY_NOTES.map(val => { return (<option key={val} value={val}>Rs. {val}</option>) })
+                        CURRENCY_NOTES.map((val,key) => { return (<option key={key} value={val}>Rs. {val}</option>) })
                     }
                 </select>
                 {formErrors ? <span className="err-txt text-danger fw-bold">*Please Enter All the Fields</span> : ""}
@@ -38,7 +52,7 @@ const Deposit = (props) => {
             <div className="col-auto">
                 <button type="button" className="btn btn-primary mt-4 float-start" onClick={(e) => addCurrency()}>ADD</button>
             </div>
-            <Transaction data={props.transactions} label={'deposit'} />
+            <Transaction data={result} label={'deposit'} />
         </React.Fragment>
     )
 }
