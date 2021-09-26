@@ -19,10 +19,15 @@ const Transaction = (props) => {
                              return(
                                  <span>Rs. {key} X {item[key]} = {key * item[key]}</span>
                              )}
-                     }))
+                     })
+                     
+                     )
                      
                  })
+                
+                 
             }
+            
         </div>
     )
 }

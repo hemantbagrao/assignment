@@ -15,7 +15,7 @@
 
 .App-header {
   background-color: #fff;
-  min-height: 50vh;
+  margin-top: 50px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -65,4 +65,8 @@
 
 .err-txt {
   font-size: 12px;
+}
+.btn-color {
+  background-color: #3B4BAC;
+  color: #fff;
 }

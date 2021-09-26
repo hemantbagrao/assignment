@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import { connect } from 'react-redux';
 import { depositAmount } from '../actions/';
 import Transaction from './transaction';
-import { CURRENCY_NOTES } from '../constants';
+import { CURRENCY_NOTES,DEPOSIT_ERR_MSG } from '../constants';
 
 const Deposit = (props) => {
     const [formErrors, setformErrors] = useState(false);
@@ -11,7 +11,8 @@ const Deposit = (props) => {
     const addCurrency = () => {
         const quantity = qty.current.value;
         const currency = curdomination.current.value;
-        if (quantity && currency !== 'Select') {
+        
+        if (Number.isInteger(Number(quantity)) && quantity && currency !== 'Select') {
             setformErrors(false)
             props.deposit(currency, quantity)
         }
@@ -42,7 +43,7 @@ const Deposit = (props) => {
                         CURRENCY_NOTES.map((val,key) => { return (<option key={key} value={val}>Rs. {val}</option>) })
                     }
                 </select>
-                {formErrors ? <span className="err-txt text-danger fw-bold">*Please Enter All the Fields</span> : ""}
+                {formErrors ? <span className="err-txt text-danger fw-bold">{DEPOSIT_ERR_MSG}</span> : ""}
             </div>
             <div className="col">
                 <label htmlFor="Quantity" className="float-start fs-6">Quantity</label>
@@ -50,7 +51,7 @@ const Deposit = (props) => {
 
             </div>
             <div className="col-auto">
-                <button type="button" className="btn btn-primary mt-4 float-start" onClick={(e) => addCurrency()}>ADD</button>
+                <button type="button" className="btn btn-color mt-4 float-start" onClick={(e) => addCurrency()}>ADD</button>
             </div>
             <Transaction data={result} label={'deposit'} />
         </React.Fragment>

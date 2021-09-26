@@ -1,12 +1,12 @@
 import React, { useState, useRef } from 'react';
 import { connect } from 'react-redux';
 import Transaction from './transaction';
+import { AMOUNT_ERR_MSG,INSUFFICIENT_BALANCE_ERR,CURRENCY_NOTES_NOT_AVAILABLE_ERR } from '../constants';
 
 const Withdraw = (props) => {
     const [result, setResult] = useState([]);
     const [formErrors, setformErrors] = useState(false);
     const amountRef = useRef(null);
-
     const checkBalance = (amount) => {
         const balance = props.transactions.reduce((acc,cur)=> {
             acc += Number(cur.currency) * Number(cur.quantity);
@@ -14,7 +14,7 @@ const Withdraw = (props) => {
         },0)
 
         if(balance < amount) {
-            alert("Insufficient balance !!");
+            alert(INSUFFICIENT_BALANCE_ERR);
             return false;
         }
         else {
@@ -24,7 +24,7 @@ const Withdraw = (props) => {
             },0)
 
             if(amount > availableCurr) {
-                alert("Notes are not avalable");
+                alert(CURRENCY_NOTES_NOT_AVAILABLE_ERR);
                 return false;
             }
             else {
@@ -50,7 +50,7 @@ const Withdraw = (props) => {
 
     const withdrawCurrency = () => {
         const amount = amountRef.current.value;
-        if (amount) {
+        if (Number.isInteger(Number(amount)) && amount ) {
             const chlAccountBalanceAndDenomination = checkBalance(amount);
             if(chlAccountBalanceAndDenomination) {
                 calculateDenomination(amount)
@@ -65,9 +65,9 @@ const Withdraw = (props) => {
             <div className="col-10 d-flex">
                 <label htmlFor="Amount" className="fs-6 w-50 pt-1">Withdraw Amount</label>
                 <input type="number" className="form-control" placeholder="Amount" ref={amountRef} aria-label="Amount" />
-                <button type="button" className="btn btn-primary mt-1 ms-3 float-start rounded" onClick={(e) => withdrawCurrency()}>WITHDRAW</button>
+                <button type="button" className="btn btn-color mt-1 ms-3 float-start rounded" onClick={(e) => withdrawCurrency()}>WITHDRAW</button>
             </div>
-            {formErrors ? <span className="err-txt text-danger fw-bold">*Please Enter Amount</span> : ""}
+            {formErrors ? <span className="err-txt text-danger fw-bold">{AMOUNT_ERR_MSG}</span> : ""}
             <Transaction data={result} />
         </React.Fragment>
     )
